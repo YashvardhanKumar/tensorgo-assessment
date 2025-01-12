@@ -7,7 +7,7 @@ const client = new IntercomClient({
 export default class AuthService {
     static async createUser(d: any) {
         const user = await client.contacts.create({
-            custom_attributes: { photo: d.photos[0].value },
+            avatar: d.photos[0].value,
             email: d._json.email,
             name: d.displayName,
         });
@@ -21,6 +21,7 @@ export default class AuthService {
                 value: email,
             },
         });
+        
         return user;
     }
     static async searchById(contact_id: string) {

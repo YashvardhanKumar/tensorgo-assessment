@@ -36,13 +36,13 @@ router
     "/google",
     passport.authenticate("google", { scope: ["profile", "email"] })
   )
-  .post(
+  .get(
     "/google/callback",
     passport.authenticate("google", { failureRedirect: "/" }),
     googleLoginCallback
   )
   .get("/logout", googleLogout);
  
-router.get("/getUser", getUser).get("/getUser/:id", getUserById);
+router.post("/getUser", getUser).get("/getUser/:id", getUserById);
 
 export default router;
