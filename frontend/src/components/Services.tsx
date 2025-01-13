@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { subDays } from "date-fns";
 import { formatRelative } from "date-fns/fp";
 
 type Complaints = {
@@ -15,12 +14,11 @@ const Services = ({ id }: any) => {
   const [complaints, setComplaints] = useState<Complaints[]>([]);
   const [visibleComplaints, setVisibleComplaints] = useState<Complaints[]>([]);
   const getComplaints = async () => {
-    const response = await axios.post(
+    const response = await axios.post<any>(
       "http://localhost:5050/service/get",
       { userId: id },
       { withCredentials: true }
     );
-    console.log(response.data);
     const tempComplaint: any[] = [];
     response.data.data.map((comp: any) => {
       const htmlString = comp.source.body;
@@ -49,10 +47,9 @@ const Services = ({ id }: any) => {
   useEffect(() => {
     getComplaints();
 
-  }, );
+  }, [id]);
 
   useEffect(() => {
-    console.log(visibleComplaints);
 
   })
 
@@ -65,6 +62,7 @@ const Services = ({ id }: any) => {
         onChange={(e) => {
           if (e.target.value == "All Queries") {
             setVisibleComplaints(complaints);
+            setCategory(e.target.value);
           } else {
             const tempComplaints = complaints.filter((complaint: any) => {
               return complaint.category == e.target.value;
@@ -90,7 +88,7 @@ const Services = ({ id }: any) => {
         </button>
       </Link>
       <div className="w-full flex flex-col items-center content-start p-5 gap-3">
-        {complaints.map((complaint) => {
+        {visibleComplaints.map((complaint) => {
           
           return (
             <Link

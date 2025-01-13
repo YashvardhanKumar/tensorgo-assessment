@@ -6,11 +6,9 @@ const client = new IntercomClient({
 
 export default class CustServService {
   static async createService(id: string, comments: string, category: string) {
-    console.log(JSON.stringify({ comments, category }));
     
     await client.conversations.create({
       from: {
-        
         type: "user",
         id,
       },
