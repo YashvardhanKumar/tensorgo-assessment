@@ -49,10 +49,6 @@ const Services = ({ id }: any) => {
 
   }, [id]);
 
-  useEffect(() => {
-
-  })
-
   return (
     <div className="complaints">
       <h2 className="text-center text-4xl font-bold m-10">Complaints</h2>
@@ -111,5 +107,3 @@ const Services = ({ id }: any) => {
 };
 
 export default Services;
-1736710354133
-1736708911
